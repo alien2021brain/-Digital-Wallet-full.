@@ -15,7 +15,7 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="OtpVerification">
+      <Stack.Navigator initialRouteName="Dashboard">
         <Stack.Screen
           name="Splash"
           component={Splash}

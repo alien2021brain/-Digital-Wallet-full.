@@ -10,9 +10,14 @@ import {
 import React, {useEffect, useRef, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icons from 'react-native-vector-icons/AntDesign';
+import axios from 'axios';
+import {API_URL} from '@env';
 let newInputIndex = 0;
-const OtpVerification = () => {
+const OtpVerification = ({route}) => {
+  const {user} = route.params;
+  console.log('user', user);
   const input = useRef();
+  // creating array of length 4
   const InputBox = Array(4).fill('');
 
   const [otp, setOtp] = useState({
@@ -66,6 +71,24 @@ const OtpVerification = () => {
   useEffect(() => {
     input.current.focus();
   }, [nextInputIndex]);
+
+  const handleOtp = () => {
+    const optValues = Object.values(otp).join('');
+    const {email} = user;
+    const otpdata = {
+      otp: optValues,
+      email,
+    };
+
+    try {
+      const res = axios.post(`${API_URL}/auth/otp`, otpdata, {
+        withCredentials: true,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <LinearGradient
       colors={['#4c669f', '#3b5998', '#192f6a']}
@@ -102,7 +125,8 @@ const OtpVerification = () => {
         </View>
         <TouchableOpacity
           className="items-center justify-center mt-10 bg-green-600 h-14 w-14 rounded-full self-center"
-          style={style.shadow}>
+          style={style.shadow}
+          onPress={handleOtp}>
           <Icons name="checkcircleo" size={42} color="white" />
         </TouchableOpacity>
       </View>

@@ -16,6 +16,7 @@ import {useQuery} from 'react-query';
 import axios from 'axios';
 import Modal from '../components/Modal';
 import DocumentPicker from 'react-native-document-picker';
+import {API_URL} from '@env';
 
 const SignUp = ({navigation}) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,7 +33,7 @@ const SignUp = ({navigation}) => {
     flag: 'https://flagcdn.com/w320/in.png',
     shortName: 'IN',
   });
-
+  console.log('apiurl', API_URL);
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -60,13 +61,9 @@ const SignUp = ({navigation}) => {
     form.append('file', res[0]);
 
     try {
-      const res = await axios.post(
-        'http://192.168.1.6:8000/uploads/single',
-        form,
-        {
-          withCredentials: true,
-        },
-      );
+      const res = await axios.post(`${API_URL}/uploads/single`, form, {
+        withCredentials: true,
+      });
       console.log(res, 'response');
       setUser(pre => ({
         ...pre,
@@ -86,10 +83,12 @@ const SignUp = ({navigation}) => {
   };
   const handleSubmit = async () => {
     try {
-      await axios.post('http://192.168.1.6:8000/auth/register', user, {
+      console.log('usersubmit', user);
+      const res = await axios.post(`${API_URL}/auth/register`, user, {
         withCredentials: true,
       });
-      navigation.replace('OtpVerification');
+      const {user: registeredUser} = res.data;
+      navigation.replace('OtpVerification', {user: registeredUser});
     } catch (error) {
       console.log('something went rong', error);
     }
