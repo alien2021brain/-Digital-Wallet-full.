@@ -92,7 +92,7 @@ const OtpVerification = ({route}) => {
   return (
     <LinearGradient
       colors={['#4c669f', '#3b5998', '#192f6a']}
-      className="flex-1 px-5 py-5 ">
+      className="flex-1 px-5 py-5  ">
       <View className="h-full mt-20 ">
         <TouchableOpacity onPress={openGmailApp} className="items-center">
           <Image

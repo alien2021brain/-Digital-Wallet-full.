@@ -11,6 +11,7 @@ import Login from './src/pages/Login';
 import SignUp from './src/pages/SignUp';
 import Dashboard from './src/pages/Dashboard';
 import OTP from './src/pages/OtpVerification';
+import Transfer from './src/pages/Transfer';
 const App = () => {
   const Stack = createNativeStackNavigator();
   return (
@@ -39,6 +40,11 @@ const App = () => {
         <Stack.Screen
           name="OtpVerification"
           component={OTP}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Transfer"
+          component={Transfer}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
