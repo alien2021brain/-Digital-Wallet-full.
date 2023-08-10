@@ -12,43 +12,53 @@ import SignUp from './src/pages/SignUp';
 import Dashboard from './src/pages/Dashboard';
 import OTP from './src/pages/OtpVerification';
 import Transfer from './src/pages/Transfer';
+import {AuthContextProvider} from './src/context/login';
+import AboutUser from './src/pages/AboutUser';
+
 const App = () => {
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Dashboard">
-        <Stack.Screen
-          name="Splash"
-          component={Splash}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Dashboard"
-          component={Dashboard}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="OtpVerification"
-          component={OTP}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Transfer"
-          component={Transfer}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Dashboard">
+          <Stack.Screen
+            name="Splash"
+            component={Splash}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Dashboard"
+            component={Dashboard}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="OtpVerification"
+            component={OTP}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Transfer"
+            component={Transfer}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="AboutUser"
+            component={AboutUser}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthContextProvider>
   );
 };
 

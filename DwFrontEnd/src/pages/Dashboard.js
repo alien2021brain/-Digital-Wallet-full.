@@ -278,8 +278,8 @@ const Dashboard = ({navigation}) => {
               </Text>
 
               <View className="flex-row  items-center flex-wrap gap-10">
-                {People.map(item => (
-                  <View>
+                {People.map((_, index) => (
+                  <View key={index}>
                     <View className="bg-gray-300 rounded-full h-12 w-12 items-center justify-center ">
                       <Text
                         className="text-3xl items-center justify-center"
@@ -297,7 +297,7 @@ const Dashboard = ({navigation}) => {
       </ScrollView>
       {/* BottomTab  */}
       <View className="absolute bottom-0 w-full h-16">
-        <BottomTab />
+        <BottomTab navigation={navigation} />
       </View>
     </SafeAreaView>
   );

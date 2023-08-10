@@ -1,14 +1,16 @@
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BottomTab from '../components/BottomTab';
 
-const Transfer = () => {
+const Transfer = ({navigation}) => {
   return (
     <SafeAreaView className="flex-1">
       <View className="container mx-auto max-w-xs">
         <View className="head flex-row gap-2 mt-5 items-center">
-          <Icon size={30} name="arrow-back" color="#3b5998" />
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon size={30} name="arrow-back" color="#3b5998" />
+          </TouchableOpacity>
           <Text
             className="text-[#3b5998] text-lg"
             style={{fontFamily: 'Poppins-Bold'}}>
@@ -32,10 +34,10 @@ const Transfer = () => {
         </View>
         <View className="transfer-Box flex gap-5 mt-5">
           {/* wallet to Contact */}
-          <View className="wallet rounded-lg flex-row justify-evenly items-center bg-green-900/5 px-3 py-7">
-            <View className="bg-green-600 rounded-md items-center justify-center h-10 w-10 ">
+          <TouchableOpacity className="wallet rounded-lg flex-row justify-evenly items-center bg-green-900/5 px-3 py-7">
+            <TouchableOpacity className="bg-green-600 rounded-md items-center justify-center h-10 w-10 ">
               <Icon name="phone-portrait-outline" size={28} color="white" />
-            </View>
+            </TouchableOpacity>
             <View className="">
               <Text className="text-xs" style={{fontFamily: 'Poppins-Light'}}>
                 Transfer your money
@@ -44,9 +46,9 @@ const Transfer = () => {
                 Pay Phone Number
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View className="wallet rounded-lg flex-row justify-evenly items-center bg-red-100 px-3 py-7">
+          <TouchableOpacity className="wallet rounded-lg flex-row justify-evenly items-center bg-red-100 px-3 py-7">
             <View className="bg-yellow-600 rounded-md items-center justify-center h-10 w-10 ">
               <Icon name="wallet-outline" size={28} color="white" />
             </View>
@@ -58,9 +60,9 @@ const Transfer = () => {
                 Wallet to Wallet
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
           {/* wallet to Bank */}
-          <View className="wallet rounded-lg flex-row justify-evenly items-center bg-blue-900/5 px-3 py-7 mb-5">
+          <TouchableOpacity className="wallet rounded-lg flex-row justify-evenly items-center bg-blue-900/5 px-3 py-7 mb-5">
             <View className="bg-blue-600 rounded-md items-center justify-center h-10 w-10 ">
               <Icon name="home-outline" size={28} color="white" />
             </View>
@@ -72,7 +74,7 @@ const Transfer = () => {
                 Wallet to Bank
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
           <View className="id items-center justify-center">
             <Text className="bg-gray-300 rounded-3xl py-1 px-3">
               WALLET ID: 1111sachin2021

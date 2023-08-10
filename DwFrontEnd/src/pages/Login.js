@@ -11,9 +11,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {useContext} from 'react';
+import {AuthContext} from '../context/login';
 const Login = ({navigation}) => {
   const [user, setUser] = useState({});
+  const {signIn} = useContext(AuthContext);
+
   const handleInputs = (name, text) => {
     setUser(pre => ({...pre, [name]: text}));
   };
@@ -29,9 +32,7 @@ const Login = ({navigation}) => {
   const handleSubmit = async () => {
     console.log('user submitted', user);
     try {
-      const res = await axios.post('http://192.168.1.6:8000/auth/login', user, {
-        withCredentials: true,
-      });
+      const res = await signIn(user);
       if (res) {
         storeData(res.data);
       }
