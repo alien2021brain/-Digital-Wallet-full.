@@ -98,6 +98,7 @@ const Dashboard = ({navigation}) => {
               <View className="feature-item">
                 <TouchableOpacity
                   className="rounded-full bg-gray-100 p-3 items-center h-14 w-14 "
+                  onPress={() => navigation.navigate('QRcode')}
                   style={{
                     shadowColor: '#000',
                     shadowOffset: {
