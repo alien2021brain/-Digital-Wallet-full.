@@ -39,7 +39,9 @@ const AboutUser = ({navigation}) => {
             </View>
           </View>
           {/* orcode */}
-          <View className="flex-row justify-between items-center">
+          <TouchableOpacity
+            onPress={() => navigation.navigate('QRcodeGen')}
+            className="flex-row justify-between items-center">
             <View className="flex-row gap-2 items-center">
               <Icon name="qrcode" color="#3b5998" size={30} />
               <Text className="text-gray-400">OR Code</Text>
@@ -47,7 +49,7 @@ const AboutUser = ({navigation}) => {
             <View className="flex-row gap-2 items-center">
               <Icon name="chevron-right" color="gray" />
             </View>
-          </View>
+          </TouchableOpacity>
           {/* password */}
           <View className="flex-row justify-between items-center">
             <View className="flex-row gap-2 items-center">

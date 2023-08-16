@@ -15,6 +15,7 @@ import Transfer from './src/pages/Transfer';
 import {AuthContextProvider} from './src/context/login';
 import AboutUser from './src/pages/AboutUser';
 import QRcode from './src/pages/QRcode';
+import QRcodeGen from './src/components/QRCode';
 const App = () => {
   const Stack = createNativeStackNavigator();
   return (
@@ -59,6 +60,11 @@ const App = () => {
           <Stack.Screen
             name="QRcode"
             component={QRcode}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="QRcodeGen"
+            component={QRcodeGen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
