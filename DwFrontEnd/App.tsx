@@ -16,6 +16,8 @@ import {AuthContextProvider} from './src/context/login';
 import AboutUser from './src/pages/AboutUser';
 import QRcode from './src/pages/QRcode';
 import QRcodeGen from './src/components/QRCode';
+import {NativeBaseProvider} from 'native-base';
+
 const App = () => {
   const Stack = createNativeStackNavigator();
   return (
