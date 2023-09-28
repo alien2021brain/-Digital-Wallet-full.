@@ -1,13 +1,54 @@
 import {View, Text, Image, TouchableOpacity, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Iconi from 'react-native-vector-icons/Ionicons';
 import BottomTab from '../components/BottomTab';
 import ProfileModal from '../components/ProfileModal';
+import DocumentPicker from 'react-native-document-picker';
+import axios from 'axios';
+import {API_URL} from '@env';
+import {AuthContext} from '../context/login';
 
 const AboutUser = ({navigation}) => {
+  const {currentUser, setCurrentUser} = useContext(AuthContext);
   const [show, setShow] = useState(false);
+  const [profile, setProfile] = useState('');
+
+  const updateUser = async () => {
+    try {
+      const res = await axios.patch(
+        `${API_URL}/users/update/profile`,
+        {profile: profile},
+        {
+          withCredentials: true,
+        },
+      );
+
+      let profileUpdate = res.data.data[0].profile;
+      setCurrentUser(pre => ({...pre, profile: profileUpdate}));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const uploadProfile = async () => {
+    const res = await DocumentPicker.pick({
+      type: [DocumentPicker.types.images],
+    });
+
+    const form = new FormData();
+    form.append('file', res[0]);
+    try {
+      console.log(API_URL);
+      const res = await axios.post(`${API_URL}/uploads/single`, form, {
+        withCredentials: true,
+      });
+      setProfile(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log('profile', currentUser.profile.replace(/\s/g, '%20'));
 
   return (
     <View className="aboutUser flex-1">
@@ -20,7 +61,7 @@ const AboutUser = ({navigation}) => {
             className="profile border h-14 w-16 rounded-lg overflow-hidden ">
             <Image
               source={{
-                uri: 'https://m.media-amazon.com/images/M/MV5BN2UxOTMxY2UtN2VjZS00YTIyLWE4ODktNTgyMDIzNDRjMTdkXkEyXkFqcGdeQXVyMTMxMzcxODk1._V1_.jpg',
+                uri: currentUser.profile.replace(/\s/g, '%20'),
               }}
               className="h-full w-full"
               resizeMode="cover"
@@ -34,7 +75,12 @@ const AboutUser = ({navigation}) => {
             <Text className="text-white">+1 8859331535</Text>
           </View>
           <View className="modal absolute top-5">
-            <ProfileModal setModalVisible={setShow} modalVisible={show} />
+            <ProfileModal
+              setModalVisible={setShow}
+              modalVisible={show}
+              updateUser={updateUser}
+              uploadProfile={uploadProfile}
+            />
           </View>
         </LinearGradient>
 

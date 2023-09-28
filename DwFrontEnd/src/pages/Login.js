@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {useContext} from 'react';
 import {AuthContext} from '../context/login';
 const Login = ({navigation}) => {
@@ -20,22 +20,13 @@ const Login = ({navigation}) => {
   const handleInputs = (name, text) => {
     setUser(pre => ({...pre, [name]: text}));
   };
-  const storeData = async value => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('user', jsonValue);
-      navigation.navigate('Dashboard');
-    } catch (e) {
-      console.log('something went wrong while storing user', e);
-    }
-  };
+
   const handleSubmit = async () => {
     console.log('user submitted', user);
     try {
-      const res = await signIn(user);
-      if (res) {
-        storeData(res.data);
-      }
+      await signIn(user);
+
+      navigation.navigate('Dashboard');
     } catch (error) {
       console.log('something went wronge', error);
     }

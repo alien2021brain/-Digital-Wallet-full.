@@ -1,28 +1,40 @@
 import {View, Text} from 'react-native';
 import React, {useEffect} from 'react';
 import axios from 'axios';
+import {API_URL} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const AuthContext = React.createContext();
 
 export const AuthContextProvider = ({children}) => {
+  console.log(API_URL);
   const [currentUser, setCurrentUser] = React.useState([]);
-  const signIn = async value => {
+
+  // saving in local storage
+  const storeData = async value => {
     try {
-      const res = await axios.post(
-        'http://192.168.1.6:8000/auth/login',
-        value,
-        {
-          withCredentials: true,
-        },
-      );
-      setCurrentUser(res.data);
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('user', jsonValue);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {}, []);
+
+  const signIn = async value => {
+    try {
+      const res = await axios.post(`${API_URL}/auth/login`, value, {
+        withCredentials: true,
+      });
+      setCurrentUser(res.data);
+      storeData(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(currentUser);
 
   return (
-    <AuthContext.Provider value={{signIn, currentUser}}>
+    <AuthContext.Provider value={{signIn, currentUser, setCurrentUser}}>
       {children}
     </AuthContext.Provider>
   );

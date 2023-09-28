@@ -23,7 +23,7 @@ const App = () => {
   return (
     <AuthContextProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Dashboard">
+        <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen
             name="Splash"
             component={Splash}

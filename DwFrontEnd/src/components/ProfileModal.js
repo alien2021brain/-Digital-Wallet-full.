@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-const App = ({setModalVisible, modalVisible}) => {
+const App = ({setModalVisible, modalVisible, updateUser, uploadProfile}) => {
   return (
     <View style={styles.centeredView}>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
@@ -9,13 +9,16 @@ const App = ({setModalVisible, modalVisible}) => {
           <View style={styles.modalView}>
             <Pressable
               className="flex-row gap-2 items-baseline"
-              onPress={() => console.log('upload')}>
+              onPress={uploadProfile}>
               <Text style={styles.modalText}>Upload</Text>
               <Icon name="image" size={32} />
             </Pressable>
             <Pressable
               className="bg-[#3b5998] px-3 py-2 rounded-lg mt-5"
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => {
+                updateUser();
+                setModalVisible(!modalVisible);
+              }}>
               <Text style={styles.textStyle}>Update Profile</Text>
             </Pressable>
           </View>
